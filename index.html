@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>HONGSENHUANBAO</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding-top: 80px;
+    color: white;
+    background: linear-gradient(to bottom, #001f3f, #000000);
+  }
+  header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    color: black;
+  }
+  .navbar-brand img { height: 50px; }
+  .navbar-brand span {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #0072c6;
+    margin-left: 10px;
+  }
+  .hero {
+    height: 90vh;
+    background: url("img/background.png") center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 20px;
+  }
+  section { padding: 60px 20px; }
+  .section-card {
+    position: relative;
+    background: linear-gradient(135deg, #003366 0%, #001f3f 100%);
+    border-radius: 15px;
+    padding: 40px;
+    margin-bottom: 40px;
+    color: white;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+  .section-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 6px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 2px, transparent 2px, transparent 6px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .section-card > * { position: relative; z-index: 2; }
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00bfff;
+  }
+
+  /* OUR CLIENT SECTION */
+  #our-client {
+    padding: 60px 20px;
+    background: #fff;
+    text-align: center;
+  }
+  #our-client h2 {
+    color: #e30613;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+  .client-slider {
+    position: relative;
+    width: 300px;
+    height: 70px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .client-slide {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 70px;
+    width: auto;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    user-select: none;
+  }
+  .client-slide.active {
+    opacity: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .footer-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 15px 20px;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .footer-logo img {
+    max-height: 70px;
+    object-fit: contain;
+  }
+  .footer-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .footer-address p, .footer-contact p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  .footer-address, .footer-contact {
+    max-width: 300px;
+  }
+  .footer-contact i { margin-right: 8px; }
+  .footer-bottom {
+    border-top: 1px solid #444;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    z-index: 1000;
+  }
+  .whatsapp-float img {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-info {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-address,
+    .footer-contact {
+      max-width: 100%;
+      text-align: center;
+    }
+  }
+
+.section-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(0, 191, 255, 0.8);
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease, visibility 1s;
+}
+#preloader .preloader-content {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #000;
+  animation: fadeText 2s ease-in-out infinite;
+}
+@keyframes fadeText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+body.loaded #preloader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+  section[id] {
+    scroll-margin-top: 120px;
+  }
+
+  .preloader-blur-line {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,191,255,0.1), rgba(0,191,255,0.4), rgba(0,191,255,0.1));
+    filter: blur(8px);
+    animation: blurLineDown 2s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes blurLineDown {
+    0% {
+      top: -100%;
+      opacity: 0;
+    }
+    30% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-blur-line"></div>
+  <div class="preloader-content">
+    <img src="img/logo-hongsen.png" alt="Logo" style="height: 400px;">
+  </div>
+</div>
+
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<div class="container">
+<a class="navbar-brand d-flex align-items-center" href="#">
+<img alt="Logo" src="img/logo-hongsen.png"/>
+<span>HONGSEN ENVIRONMENTAL TECHNOLOGY</span>
+</a>
+<button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="#visi">Visi &amp; Misi</a></li>
+<li class="nav-item"><a class="nav-link" href="#nilai">Nilai</a></li>
+<li class="nav-item"><a class="nav-link" href="#sejarah">Sejarah</a></li>
+<li class="nav-item"><a class="nav-link" href="#struktur">Struktur</a></li>
+<li class="nav-item"><a class="nav-link" href="#bisnis">Bisnis</a></li>
+<li class="nav-item"><a class="nav-link" href="#berita">Berita</a></li>
+<li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+<section class="hero">
+<h1 data-aos="fade-up">Shenzhen Hongsen Environment Protection Technology Ltd,</h1>
+</section>
+<section class="container section-card" data-aos="fade-up" id="visi">
+<h2 class="section-title">Visi &amp; Misi</h2>
+<p><strong>Visi:</strong> Menjadi perusahaan energi nasional kelas dunia.</p>
+<p><strong>Misi:</strong> Menyediakan energi berkelanjutan yang ramah lingkungan untuk masa depan.</p>
+</section>
+<section class="container section-card" data-aos="fade-up" id="nilai">
+<h2 class="section-title">Nilai Perusahaan</h2>
+<ul>
+<li>Integritas</li>
+<li>Profesionalisme</li>
+<li>Inovasi</li>
+<li>Keamanan</li>
+<li>Keunggulan</li>
+</ul>
+</section>
+<section class="container section-card" data-aos="fade-up" id="sejarah">
+<h2 class="section-title">Sejarah</h2>
+<p>Didirikan sejak 1957, terus berkembang menjadi perusahaan energi berkelas dunia.</p>
+</section>
+<section class="container section-card" data-aos="fade-up" id="struktur">
+<h2 class="section-title">Struktur Organisasi</h2>
+<p>Struktur organisasi terdiri dari direksi, komisaris, dan divisi strategis.</p>
+</section>
+<section class="container section-card" data-aos="fade-up" id="bisnis">
+<h2 class="section-title">Bisnis</h2>
+<p>Bergerak di bidang Pengolahan Air Limbah Industri</p>
+</section>
+<section class="container section-card" data-aos="fade-up" id="berita">
+<h2 class="section-title">Berita Terbaru</h2>
+<p>Ikuti kabar terbaru dan pencapaian kami dalam membangun negeri.</p>
+</section>
+<section class="container section-card" data-aos="fade-up" id="kontak">
+<h2 class="section-title">Kontak</h2>
+<p>Email: hongsen.environmental@gmail.com<br/>Telepon: +62 2118393335</p>
+</section>
+<!-- OUR CLIENT SECTION -->
+<section id="our-client">
+<h2>OUR CLIENT</h2>
+<div class="client-slider">
+<img alt="Unilever" class="client-slide active" src="img/unilever.png"/>
+<img alt="WIKA" class="client-slide" src="img/wika.png"/>
+<img alt="PERTAMINA" class="client-slide" src="img/pertamina.png"/>
+<img alt="Shell" class="client-slide" src="img/shell.png"/>
+</div>
+</section>
+<footer>
+<div class="footer-container">
+<div class="footer-logo">
+<img alt="Logo Hongsen" src="img/logo-hongsen.png"/>
+</div>
+<div class="footer-info">
+<div class="footer-address">
+<p>PT. HONGSEN ENVIRONMENTAL TECHNOLOGY</p>
+<p>The Honey Lady Building, Lt.05 Unit 505</p>
+<p>Jln. Pluit Selatan Raya No.01</p>
+<p>Penjaringan, Jakarta Utara</p>
+</div>
+<div class="footer-contact">
+<p><i class="fas fa-envelope"></i> hongsen.environmental@gmail.com</p>
+<p><i class="fas fa-globe"></i> www.hongsenszg.com</p>
+<p><i class="fas fa-phone"></i> +62 82118393335</p>
+<p><i class="fas fa-fax"></i> +86 13410868605</p>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© PT. HONGSEN ENVIRONMENTAL TECHNOLOGY</p>
+</div>
+<a aria-label="Chat WhatsApp" class="whatsapp-float" href="https://wa.me/6281234567890" target="_blank">
+<img alt="WhatsApp" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"/>
+</a>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  // Slider logo OUR CLIENT
+  const slides = document.querySelectorAll('.client-slide');
+  let currentSlide = 0;
+  const slideInterval = setInterval(nextSlide, 3000);
+
+  function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+</script>
+
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.body.classList.add("loaded");
+    }, 3000); // 3 detik
+  });
+</script>
+
+</body>
+</html>
